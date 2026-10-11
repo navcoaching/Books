@@ -27,6 +27,8 @@
   --color-caution-soft: oklch(95.5% 0.020 27);
   --color-caution-rule: oklch(86% 0.040 27);
   --color-focus:      oklch(55% 0.19 235);
+  /* شرائط الشعار المائلة — نفس --slash في navcoaching.com */
+  --slash: linear-gradient(115deg, transparent 0 18%, var(--color-accent) 18% 34%, transparent 34% 50%, var(--color-accent) 50% 66%, transparent 66% 82%, var(--color-accent) 82% 98%, transparent 98%);
 
   /* type */
   --font-display: "Readex Pro", "IBM Plex Sans Arabic", Tahoma, sans-serif;
