@@ -191,13 +191,5 @@ td.term{font-weight:600}
 .day li .x,.lib td.c a{font-weight:500;letter-spacing:0}
 
 /* ===== v5 · خلفية الموقع: شرائط الشعار المائلة كأشكال متجهة (SVG) بألوان صلبة — بلا شفافية ولا أقنعة ===== */
-.slashes{position:absolute;pointer-events:none;z-index:0}
-.slashes.s-content{left:0;bottom:0;width:62mm;height:24mm}
-.slashes.s-opener{left:0;bottom:0;width:150mm;height:62mm}
-.slashes.s-rights{left:0;top:0;width:120mm;height:48mm}
-.slashes.s-dark{left:0;bottom:0;width:180mm;height:74mm}
+.slashes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .pc,.ph,.pf,.opener .big,.opener .lbl,.opener .inside,.cover .lg,.cover .t,.cover .by,.cover .frame,.contact .in,.contact .frame{z-index:1}
-.slashes.s-opener{top:0;bottom:auto;width:118mm;height:47mm}
-.slashes.s-dark{width:112mm;height:45mm}
-.cover .by{bottom:58mm}
-.contact .in{padding-bottom:58mm}

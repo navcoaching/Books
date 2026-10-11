@@ -125,31 +125,24 @@
     op.appendChild(box);
   });
 
-  // شرائط الشعار المائلة (أشكال متجهة بألوان صلبة)
+  // شرائط الشعار المائلة على كامل الصفحة — أشكال متجهة بألوان صلبة قريبة من لون الورق
   const PAL = {
-    content: ['#E8F6FC', '#D2EFFA', '#E1E8F7'],
-    rights:  ['#E8F6FC', '#D2EFFA', '#E1E8F7'],
-    opener:  ['#D9F2FB', '#9FDDF5', '#284DA0'],
-    dark:    ['#11295A', '#173A78', '#1FBAEC'],
+    content: ['#ECF2FA', '#E6F3FB', '#E0E8F6'],
+    opener:  ['#E3EEF9', '#D8EEF9', '#C9D7F0'],
+    dark:    ['#0B1D41', '#0D2350', '#123064'],
   };
-  function slashes(kind, top) {
+  function slashes(kind) {
     const [a, b, c] = PAL[kind];
-    // ثلاثة متوازيات بميل شعار Nav (≈115°) — العرض 300 × الارتفاع 120
-    const bar = (x, w, fill) => {
-      const d = 56; // الإزاحة الأفقية للميل
-      const pts = top ? `${x},0 ${x + w},0 ${x + w - d},120 ${x - d},120` : `${x - d},120 ${x + w - d},120 ${x + w},0 ${x},0`;
-      return `<polygon points="${pts}" fill="${fill}"/>`;
-    };
-    const svg = `<svg class="slashes s-${kind === 'dark' ? 'dark' : kind}" viewBox="0 0 300 120" preserveAspectRatio="${top ? 'xMinYMin' : 'xMinYMax'} meet" aria-hidden="true">`
-      + bar(40, 70, a) + bar(130, 70, b) + bar(220, 26, c) + '</svg>';
-    return svg;
+    const dx = 138; // ميل الشعار ≈ 25° عن الرأسي على ارتفاع 297 مم
+    const bar = (x, w, fill) => `<polygon points="${x + dx},0 ${x + dx + w},0 ${x + w},297 ${x},297" fill="${fill}"/>`;
+    const group = (x) => bar(x, 26, a) + bar(x + 38, 26, b) + bar(x + 76, 9, c);
+    return `<svg class="slashes" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">${group(-112) + group(56)}</svg>`;
   }
   pages.forEach((p) => {
     let kind = 'content';
     if (p.classList.contains('cover') || p.classList.contains('contact')) kind = 'dark';
     else if (p.classList.contains('opener')) kind = 'opener';
-    else if (p.classList.contains('rights')) kind = 'rights';
-    p.insertAdjacentHTML('afterbegin', slashes(kind, kind === 'rights' || kind === 'opener'));
+    p.insertAdjacentHTML('afterbegin', slashes(kind));
   });
 
   // فحص التجاوز
