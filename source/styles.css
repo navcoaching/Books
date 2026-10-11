@@ -190,19 +190,14 @@ td.term{font-weight:600}
 .qa .q{font-family:var(--font-display);font-weight:500}
 .day li .x,.lib td.c a{font-weight:500;letter-spacing:0}
 
-/* ===== v4 · خلفية الموقع: شرائط الشعار المائلة + شبكة نقاط ===== */
-.content-page::before,.opener::before,.rights::before{content:"";position:absolute;pointer-events:none;background:var(--slash);opacity:.09}
-.content-page::before{width:110mm;height:54mm;left:-26mm;bottom:-24mm;opacity:.07}
-.content-page::after{content:"";position:absolute;inset:0 0 auto auto;width:70mm;height:52mm;pointer-events:none;
-  background:radial-gradient(circle at 1px 1px,var(--color-rule) 1.1px,transparent 0) 0 0/5mm 5mm;
-  -webkit-mask-image:linear-gradient(225deg,#000 0%,transparent 70%);mask-image:linear-gradient(225deg,#000 0%,transparent 70%);opacity:.7}
-.opener::before{width:210mm;height:104mm;left:-48mm;bottom:-18mm;opacity:.12}
-.opener::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle at 1px 1px,var(--color-rule) 1.2px,transparent 0) 0 0/6mm 6mm;
-  -webkit-mask-image:linear-gradient(180deg,#000,transparent 55%);mask-image:linear-gradient(180deg,#000,transparent 55%);opacity:.55}
-.rights::before{width:150mm;height:74mm;left:-30mm;top:20mm;opacity:.08}
-.cover::before,.contact::before{content:"";position:absolute;pointer-events:none;background:var(--slash);opacity:.14;width:230mm;height:112mm;left:-40mm;bottom:-10mm}
-.cover::after,.contact::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle at 1px 1px,var(--color-night-rule) 1.2px,transparent 0) 0 0/6mm 6mm;
-  -webkit-mask-image:linear-gradient(180deg,#000,transparent 60%);mask-image:linear-gradient(180deg,#000,transparent 60%);opacity:.6}
-.pc,.ph,.pf,.opener .big,.opener .lbl,.opener .inside,.cover > *,.contact .in{z-index:1}
+/* ===== v5 · خلفية الموقع: شرائط الشعار المائلة كأشكال متجهة (SVG) بألوان صلبة — بلا شفافية ولا أقنعة ===== */
+.slashes{position:absolute;pointer-events:none;z-index:0}
+.slashes.s-content{left:0;bottom:0;width:62mm;height:24mm}
+.slashes.s-opener{left:0;bottom:0;width:150mm;height:62mm}
+.slashes.s-rights{left:0;top:0;width:120mm;height:48mm}
+.slashes.s-dark{left:0;bottom:0;width:180mm;height:74mm}
+.pc,.ph,.pf,.opener .big,.opener .lbl,.opener .inside,.cover .lg,.cover .t,.cover .by,.cover .frame,.contact .in,.contact .frame{z-index:1}
+.slashes.s-opener{top:0;bottom:auto;width:118mm;height:47mm}
+.slashes.s-dark{width:112mm;height:45mm}
+.cover .by{bottom:58mm}
+.contact .in{padding-bottom:58mm}
