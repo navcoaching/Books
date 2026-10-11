@@ -1,0 +1,46 @@
+/* Hallmark · tokens · theme: custom (vibe: "pearl paper, midnight navy, hairline restraint")
+ * axes: light / geometric-sans (Readex Pro) / cool
+ * brand anchors: navy #284da0 · logo cyan #1fbaec (navcoaching.com + logo)
+ */
+:root{
+  /* paper & ink — tinted toward brand navy (hue ~262) */
+  --color-paper:      oklch(97.6% 0.006 255);
+  --color-paper-2:    oklch(95.2% 0.010 255);
+  --color-paper-3:    oklch(91.5% 0.014 258);
+  --color-rule:       oklch(78% 0.018 262);
+  --color-rule-2:     oklch(88% 0.012 260);
+  --color-muted:      oklch(50% 0.025 262);
+  --color-ink-2:      oklch(33% 0.045 265);
+  --color-ink:        oklch(22% 0.050 266);
+  --color-night:      oklch(17% 0.045 266);
+  --color-night-2:    oklch(23% 0.060 266);
+  --color-on-night:   oklch(95% 0.010 255);
+  --color-on-night-2: oklch(78% 0.025 255);
+  --color-night-rule: oklch(42% 0.050 260);
+
+  /* brand */
+  --color-brand:      oklch(45.5% 0.150 264);   /* #284da0 */
+  --color-accent:     oklch(73% 0.135 228);     /* #1fbaec — marks only, ≤5% */
+  --color-accent-ink: oklch(50% 0.110 234);     /* accent for text on paper */
+  --color-accent-soft:oklch(94% 0.030 228);
+  --color-caution:    oklch(50% 0.150 27);
+  --color-caution-soft: oklch(95.5% 0.020 27);
+  --color-caution-rule: oklch(86% 0.040 27);
+  --color-focus:      oklch(55% 0.19 235);
+
+  /* type */
+  --font-display: "Readex Pro", "IBM Plex Sans Arabic", Tahoma, sans-serif;
+  --font-body:    "IBM Plex Sans Arabic", "Readex Pro", Tahoma, sans-serif;
+
+  --text-xs: 8.4pt;  --text-sm: 9.6pt;  --text-body: 11.2pt; --text-md: 12.6pt;
+  --text-lg: 15pt;   --text-xl: 19pt;   --text-2xl: 30pt;    --text-display: 44pt;
+  --text-numeral: 150pt;
+
+  /* space — 4pt scale, in mm for print */
+  --space-3xs: 1mm;  --space-2xs: 1.5mm; --space-xs: 2.5mm; --space-sm: 3.5mm;
+  --space-md: 5mm;   --space-lg: 8mm;    --space-xl: 12mm;  --space-2xl: 18mm; --space-3xl: 26mm;
+
+  --rule-hair: 0.6pt;
+  --rule-strong: 1.4pt;
+  --radius-card: 1.2mm;
+}

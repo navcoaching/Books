@@ -5,6 +5,17 @@
   const src = document.getElementById('src');
   const LOGO = 'img/logo-color.png';
 
+  // ترقيم المفاهيم الخاطئة قبل التوزيع
+  src.querySelectorAll('.myth').forEach((m, i) => { m.dataset.n = String(i + 1).padStart(2, '0'); });
+  // عناوين كل فصل لقائمة «في هذا الفصل» في صفحة الافتتاح
+  const chapterHeads = {};
+  src.querySelectorAll('section.flow[data-num]').forEach((sec) => {
+    chapterHeads[sec.dataset.num] = [...sec.querySelectorAll(':scope > h2')].map((h, i) => {
+      if (!h.id) h.id = `c${sec.dataset.num}-${i + 1}`;
+      return h;
+    });
+  });
+
   function chrome(page, num, title) {
     const ph = document.createElement('header');
     ph.className = 'ph';
@@ -94,6 +105,24 @@
     if (!t) return;
     const pg = t.closest('.page');
     li.querySelector('.pg').textContent = pages.indexOf(pg) + 1;
+  });
+
+  // «في هذا الفصل» بأرقام الصفحات
+  Object.entries(chapterHeads).forEach(([num, heads]) => {
+    const op = document.getElementById('ch' + num);
+    if (!op || heads.length < 2) return;
+    const box = document.createElement('div');
+    box.className = 'inside';
+    box.innerHTML = '<div class="h">في هذا الفصل</div><ol></ol>';
+    const ol = box.querySelector('ol');
+    heads.slice(0, 8).forEach((h) => {
+      const li = document.createElement('li');
+      const pg = pages.indexOf(h.closest('.page')) + 1;
+      li.innerHTML = `<span></span><span>${pg}</span>`;
+      li.firstChild.textContent = h.textContent.replace(/^\d+\.\d+/, '').trim();
+      ol.appendChild(li);
+    });
+    op.appendChild(box);
   });
 
   // فحص التجاوز

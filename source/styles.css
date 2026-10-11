@@ -1,171 +1,172 @@
-/* Nav Coaching — كتيّب التدريب الرياضي
-   ألوان وخطوط مأخوذة من navcoaching.com وشعار Nav Coaching */
-:root{
-  --navy:#284da0;        /* primary في الموقع */
-  --navy-deep:#1d3a80;   /* primary-deep */
-  --ink:#07142a;         /* ink / theme-color */
-  --ink-2:#0d1f3c;
-  --cyan:#1fbaec;        /* سماوي الشعار */
-  --cyan-site:#4cc5ed;   /* cyan في الموقع */
-  --cyan-soft:#e4f6fc;
-  --navy-soft:#e3ebfb;
-  --coral:#f87171;
-  --coral-deep:#b91c1c;
-  --coral-soft:#fee2e2;
-  --text:#1e293b;
-  --muted:#475569;
-  --line:#dbe3ef;
-  --paper:#ffffff;
-  --sunken:#f4f7fb;
-  --f-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
-  --f-body:"IBM Plex Sans Arabic","Readex Pro",Tahoma,sans-serif;
-}
+/* Hallmark · genre: editorial · macrostructure: Long Document · theme: custom (pearl paper, midnight navy, hairline restraint)
+ * tone: luxury · anchor hue: 264 (brand navy) · accent: logo cyan ≤5% · display: Readex Pro 300/600 · body: IBM Plex Sans Arabic
+ * enrichment: Tier-B hand-built SVG (muscle contractions) · running head: N9 edge-aligned · footer: Ft2 inline
+ * Nav Coaching — كتيّب التدريب الرياضي. كل القيم تأتي من tokens.css
+ */
 @page{size:210mm 297mm;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#cfd6e2}
-body{font-family:var(--f-body);color:var(--text);font-size:11.4pt;line-height:1.85;direction:rtl;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{background:var(--color-paper-3)}
+body{font-family:var(--font-body);color:var(--color-ink-2);font-size:var(--text-body);line-height:1.9;direction:rtl;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-feature-settings:"kern"}
 #src{display:none}
-.page{width:210mm;height:297mm;position:relative;overflow:hidden;background:var(--paper);margin:0 auto 8mm;page-break-after:always;break-after:page}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;background:var(--color-paper);margin:0 auto 8mm;break-after:page}
 @media print{html,body{background:none}.page{margin:0}}
-a{color:var(--navy);text-decoration:none;border-bottom:1px solid rgba(40,77,160,.35)}
-.en{direction:ltr;unicode-bidi:isolate;font-family:var(--f-display)}
+a{color:var(--color-brand);text-decoration:underline;text-decoration-color:var(--color-accent);text-decoration-thickness:0.8pt;text-underline-offset:2pt}
+.en{direction:ltr;unicode-bidi:isolate;font-family:var(--font-display)}
 
-/* ---------- ترويسة وتذييل الصفحات الداخلية ---------- */
-.ph{position:absolute;top:0;left:0;right:0;height:22mm;padding:0 16mm;display:flex;align-items:center;gap:4mm}
-.ph-num{font-family:var(--f-display);font-weight:700;color:var(--cyan);font-size:11pt}
-.ph-title{font-family:var(--f-display);font-weight:500;color:var(--navy);font-size:9.5pt;white-space:nowrap}
-.ph-line{flex:1;height:1.2px;background:linear-gradient(to left,var(--navy),rgba(40,77,160,.08))}
-.ph img{height:7.2mm}
-.pf{position:absolute;bottom:0;left:0;right:0;height:18mm;padding:0 16mm;display:flex;align-items:center;justify-content:space-between;font-family:var(--f-display);font-size:8.5pt;color:var(--muted)}
-.pf .site{direction:ltr;letter-spacing:.3px}
-.pnum{display:inline-flex;align-items:center;justify-content:center;min-width:9mm;height:9mm;border-radius:2.5mm;background:var(--navy);color:#fff;font-weight:600;font-size:9.5pt}
-.pc{position:absolute;top:24mm;bottom:20mm;left:17mm;right:17mm;overflow:hidden}
+/* ---------- الترويسة والتذييل ---------- */
+.ph{position:absolute;top:13mm;left:22mm;right:22mm;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-muted)}
+.ph-num{display:none}
+.ph-title{font-weight:400}
+.ph-line{display:none}
+.ph img{height:5.4mm;opacity:.9}
+.pf{position:absolute;bottom:12mm;left:22mm;right:22mm;display:flex;align-items:center;justify-content:center;gap:var(--space-sm);font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-muted)}
+.pf::before,.pf::after{content:"";width:10mm;height:var(--rule-hair);background:var(--color-rule)}
+.pf .site{display:none}
+.pnum{font-weight:400;font-size:var(--text-sm);color:var(--color-ink);letter-spacing:.5pt;font-variant-numeric:tabular-nums}
+.pc{position:absolute;top:30mm;bottom:26mm;left:22mm;right:22mm;overflow:hidden}
 
-/* ---------- عناصر المحتوى ---------- */
-.pc > *{margin-bottom:3.2mm}
-h2{font-family:var(--f-display);font-weight:600;font-size:17pt;line-height:1.45;color:var(--navy);margin-top:2mm;padding-bottom:1.5mm;position:relative}
-h2::after{content:"";position:absolute;right:0;bottom:0;width:16mm;height:1.1mm;border-radius:1mm;background:var(--cyan)}
-h2 .k{color:var(--cyan);margin-left:2mm}
-h3{font-family:var(--f-display);font-weight:600;font-size:12.6pt;line-height:1.55;color:var(--ink-2);margin-top:2.5mm}
-h3 .k{color:var(--navy);margin-left:1.5mm}
+/* ---------- المحتوى ---------- */
+.pc > *{margin-bottom:var(--space-sm)}
+h2{font-family:var(--font-display);font-weight:600;font-size:var(--text-xl);line-height:1.45;color:var(--color-ink);margin-top:var(--space-md);padding-top:var(--space-sm);border-top:var(--rule-hair) solid var(--color-rule)}
+.pc > h2:first-child{margin-top:0;border-top:0;padding-top:0}
+h2 .k{color:var(--color-accent-ink);font-weight:300;margin-left:var(--space-2xs)}
+h3{font-family:var(--font-display);font-weight:500;font-size:var(--text-md);line-height:1.6;color:var(--color-brand);margin-top:var(--space-xs)}
+h3 .k{color:var(--color-muted);font-weight:300;margin-left:var(--space-3xs)}
 p{text-align:justify;text-justify:inter-word}
-strong,b{font-weight:600;color:var(--ink-2)}
-ul.b,ol.b{padding-right:6mm}
-ul.b li,ol.b li{margin-bottom:1.6mm}
-ul.b li::marker{color:var(--cyan)}
-ol.b li::marker{color:var(--navy);font-weight:600;font-family:var(--f-display)}
-.lead{font-size:12.4pt;line-height:1.95;color:var(--ink-2)}
-.note,.warn,.tip{border-radius:3mm;padding:3.6mm 5mm;font-size:10.6pt;line-height:1.8}
-.note{background:var(--cyan-soft);border-right:1.4mm solid var(--cyan)}
-.tip{background:var(--navy-soft);border-right:1.4mm solid var(--navy)}
-.warn{background:var(--coral-soft);border-right:1.4mm solid var(--coral)}
-.note b:first-child,.tip b:first-child,.warn b:first-child{font-family:var(--f-display);display:block;margin-bottom:.6mm}
-.warn b:first-child{color:var(--coral-deep)}
+strong,b{font-weight:600;color:var(--color-ink)}
+ul.b,ol.b{padding-right:var(--space-md)}
+ul.b li,ol.b li{margin-bottom:var(--space-2xs);padding-right:var(--space-3xs)}
+ul.b li::marker{color:var(--color-accent);font-size:.8em}
+.lead{font-family:var(--font-display);font-weight:300;font-size:var(--text-lg);line-height:1.85;color:var(--color-ink)}
 
-/* بطاقات المفاهيم الخاطئة */
-.myth{border:1px solid var(--line);border-radius:3.2mm;overflow:hidden;break-inside:avoid}
-.myth .m{background:var(--sunken);padding:2.4mm 5mm;font-family:var(--f-display);font-weight:500;font-size:10.8pt;color:var(--ink-2);display:flex;gap:2.5mm;align-items:baseline}
-.myth .m::before{content:"الاعتقاد الشائع";flex:none;font-size:8pt;font-weight:600;color:#fff;background:var(--coral);border-radius:1.6mm;padding:0 2mm;line-height:1.9}
-.myth .f{padding:2.4mm 5mm 2.8mm;font-size:10.6pt;line-height:1.8;text-align:justify}
-.myth .f::before{content:"التصحيح: ";font-weight:600;color:var(--navy);font-family:var(--f-display)}
+/* ملاحظات — إطار رفيع كامل، بلا شريط جانبي */
+.note,.tip,.warn{border:var(--rule-hair) solid var(--color-rule-2);background:var(--color-paper-2);border-radius:var(--radius-card);padding:var(--space-sm) var(--space-md);font-size:10.4pt;line-height:1.85}
+.note b:first-child,.tip b:first-child,.warn b:first-child{display:block;font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--color-accent-ink);margin-bottom:var(--space-3xs)}
+.tip b:first-child{color:var(--color-brand)}
+.warn{background:var(--color-caution-soft);border-color:var(--color-caution-rule)}
+.warn b:first-child{color:var(--color-caution)}
 
-/* أسئلة شائعة */
-.qa{border-right:1.2mm solid var(--navy);padding:.5mm 4.5mm 0 0}
-.qa .q{font-family:var(--f-display);font-weight:600;color:var(--navy);font-size:11.6pt;line-height:1.6;margin-bottom:1mm}
-.qa .q .n{color:var(--cyan);margin-left:1.5mm}
-.qa .a{text-align:justify}
+/* المفاهيم الخاطئة — كتلة تحريرية مرقّمة */
+.pc{counter-reset:none}
+.flow-myths{counter-reset:myth}
+.myth{display:grid;grid-template-columns:11mm minmax(0,1fr);column-gap:var(--space-sm);padding:var(--space-sm) 0;border-top:var(--rule-hair) solid var(--color-rule-2);break-inside:avoid}
+.myth::before{content:attr(data-n);grid-row:1 / span 2;font-family:var(--font-display);font-weight:300;font-size:var(--text-lg);color:var(--color-accent-ink);line-height:1.3}
+.myth .m{font-family:var(--font-display);font-weight:400;font-size:var(--text-md);color:var(--color-ink);line-height:1.6;margin-bottom:var(--space-3xs)}
+.myth .m::before{content:"«"}
+.myth .m::after{content:"»"}
+.myth .f{font-size:10.6pt;line-height:1.85;text-align:justify}
+.myth .f::before{content:"الصحيح: ";font-family:var(--font-display);font-weight:600;color:var(--color-brand)}
 
-/* جداول */
-table{width:100%;border-collapse:separate;border-spacing:0;font-size:10.4pt;line-height:1.65;border:1px solid var(--line);border-radius:3mm;overflow:hidden}
-th{background:var(--navy);color:#fff;font-family:var(--f-display);font-weight:500;padding:2.2mm 3mm;text-align:center}
-td{padding:2.2mm 3.4mm;border-top:1px solid var(--line);vertical-align:middle}
-tbody tr:nth-child(even) td{background:var(--sunken)}
-td.term{font-family:var(--f-display);font-weight:600;color:var(--navy);direction:ltr;text-align:center;white-space:nowrap;width:30%}
+/* الأسئلة الشائعة */
+.qa{display:grid;grid-template-columns:11mm minmax(0,1fr);column-gap:var(--space-sm);padding-top:var(--space-2xs);font-size:10.8pt;line-height:1.8;border-top:var(--rule-hair) solid var(--color-rule-2);break-inside:avoid}
+.qa .q{grid-column:2;font-family:var(--font-display);font-weight:600;color:var(--color-ink);font-size:var(--text-md);line-height:1.6;margin-bottom:var(--space-3xs);position:relative}
+.qa .q .n{position:absolute;right:calc(-11mm - var(--space-sm));top:0;width:11mm;font-weight:300;color:var(--color-accent-ink);font-size:var(--text-lg);line-height:1.3}
+.qa .a{grid-column:2;text-align:justify}
+
+/* جداول — خطوط رفيعة بلا تعبئة */
+table{width:100%;border-collapse:collapse;font-size:10.2pt;line-height:1.7;font-variant-numeric:tabular-nums}
+th{font-family:var(--font-display);font-weight:600;color:var(--color-ink);font-size:var(--text-sm);padding:var(--space-2xs) var(--space-xs);text-align:center;border-bottom:var(--rule-strong) solid var(--color-ink);vertical-align:bottom}
+th span{color:var(--color-muted);font-weight:400}
+td{padding:var(--space-2xs) var(--space-xs);border-bottom:var(--rule-hair) solid var(--color-rule-2);vertical-align:middle}
+td.term{font-family:var(--font-display);font-weight:500;color:var(--color-brand);direction:ltr;text-align:center;white-space:nowrap;width:30%}
 td.c{text-align:center}
-.t-glossary td.term{font-size:9.8pt}
+.t-glossary td.term{font-size:9.6pt}
 
-/* أعمدة */
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
-.card{background:var(--sunken);border-radius:3.2mm;padding:4mm 4.5mm}
-.card h3{margin-top:0;margin-bottom:1.5mm;font-size:12pt}
-.card ul{padding-right:5mm;font-size:10.5pt;line-height:1.75}
-.card ul li{margin-bottom:1.4mm}
-.card ul li::marker{color:var(--cyan)}
-.figure{text-align:center}
-.figure img{max-width:100%;border-radius:2mm}
-.figure .cap{font-size:9pt;color:var(--muted);margin-top:1mm}
+/* أعمدة وبطاقات */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-lg)}
+.card{border-top:var(--rule-strong) solid var(--color-ink);padding-top:var(--space-xs)}
+.card h3{margin-top:0;margin-bottom:var(--space-2xs);color:var(--color-ink);font-weight:600}
+.card ul{padding-right:var(--space-md);font-size:10.4pt;line-height:1.8}
+.card ul li{margin-bottom:var(--space-2xs)}
+.card ul li::marker{color:var(--color-accent)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--space-2xs) var(--space-md);align-items:baseline}
+.kv dt{font-family:var(--font-display);font-weight:600;color:var(--color-brand)}
+
+/* الخطوات */
 .steps{counter-reset:s;list-style:none;padding:0}
-.steps li{counter-increment:s;position:relative;padding-right:10mm;margin-bottom:2mm}
-.steps li::before{content:counter(s);position:absolute;right:0;top:.6mm;width:7mm;height:7mm;border-radius:50%;background:var(--cyan);color:#fff;font-family:var(--f-display);font-weight:600;font-size:9.5pt;display:flex;align-items:center;justify-content:center;line-height:1}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:1.5mm 4mm;align-items:baseline}
-.kv dt{font-family:var(--f-display);font-weight:600;color:var(--navy)}
+.steps li{counter-increment:s;position:relative;padding-right:10mm;margin-bottom:var(--space-xs)}
+.steps li::before{content:counter(s);position:absolute;right:0;top:.4mm;width:6.4mm;height:6.4mm;border-radius:50%;border:var(--rule-hair) solid var(--color-brand);color:var(--color-brand);font-family:var(--font-display);font-weight:500;font-size:var(--text-xs);display:flex;align-items:center;justify-content:center;line-height:1}
+
+/* رسوم الانقباضات العضلية */
+.muscles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-md);margin-top:var(--space-xs)}
+.muscles figure{text-align:center}
+.muscles img{width:100%;height:auto;display:block;background:var(--color-paper-2);border-radius:var(--radius-card)}
+.muscles figcaption{margin-top:var(--space-2xs);font-size:var(--text-sm);line-height:1.6}
+.muscles figcaption b{display:block;font-family:var(--font-display);color:var(--color-ink)}
+.muscles figcaption .en{color:var(--color-accent-ink);font-size:var(--text-xs)}
+.credit{font-size:var(--text-xs);color:var(--color-muted);text-align:center}
 
 /* مكتبة التمارين وجداول الأمثلة */
-.lib td{padding:2.6mm 3.4mm}
-.lib td.c a{font-family:var(--f-display);font-weight:500;direction:ltr;unicode-bidi:isolate}
-.play{display:inline-block;width:5mm;height:5mm;border-radius:50%;background:var(--coral);position:relative;vertical-align:-1mm;margin-left:1.5mm}
-.play::after{content:"";position:absolute;top:1.25mm;left:1.85mm;border-left:1.7mm solid #fff;border-top:1.25mm solid transparent;border-bottom:1.25mm solid transparent}
-.days{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
-.day{border:1px solid var(--line);border-radius:3mm;overflow:hidden;break-inside:avoid}
-.day .dh{background:var(--navy);color:#fff;font-family:var(--f-display);padding:1.6mm 4mm;display:flex;justify-content:space-between;align-items:center;font-size:10.2pt}
-.day .dh span:last-child{direction:ltr;font-size:8.6pt;opacity:.85;letter-spacing:.4px}
-.day ol{list-style:none;padding:1mm 0;font-size:9.6pt;line-height:1.5}
-.day li{display:flex;gap:2.5mm;padding:1.1mm 4mm;align-items:baseline}
-.day li:nth-child(even){background:var(--sunken)}
-.day li .i{color:var(--cyan);font-family:var(--f-display);font-weight:600;width:3.5mm;flex:none}
-.day li .ar{flex:1}
-.day li .x{direction:ltr;font-family:var(--f-display);font-size:8.4pt;color:var(--muted);white-space:nowrap}
-.day li a.x{color:var(--navy)}
-.plan-title{font-family:var(--f-display);font-weight:600;color:var(--ink-2);font-size:13pt;display:flex;align-items:center;gap:2.5mm}
-.plan-title .chip{background:var(--cyan);color:#fff;border-radius:2mm;padding:0 2.5mm;font-size:10pt}
+.lib td.c a{font-family:var(--font-display);font-weight:500;direction:ltr;unicode-bidi:isolate}
+.play{display:inline-block;width:0;height:0;border-left:1.8mm solid transparent;border-right:0;border-top:1.15mm solid transparent;border-bottom:1.15mm solid transparent;border-left-color:var(--color-accent);margin-left:var(--space-2xs);vertical-align:.2mm;transform:scaleX(-1)}
+.days{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-md)}
+.day{border-top:var(--rule-strong) solid var(--color-brand);break-inside:avoid}
+.day .dh{font-family:var(--font-display);padding:var(--space-2xs) 0;display:flex;justify-content:space-between;align-items:baseline;font-size:10pt;font-weight:600;color:var(--color-ink);border-bottom:var(--rule-hair) solid var(--color-rule)}
+.day .dh span:last-child{direction:ltr;font-size:var(--text-xs);font-weight:400;color:var(--color-muted);letter-spacing:.6pt}
+.day ol{list-style:none;padding:0;font-size:9.6pt;line-height:1.5}
+.day li{display:flex;gap:var(--space-xs);padding:var(--space-2xs) 0;align-items:baseline;border-bottom:var(--rule-hair) solid var(--color-rule-2)}
+.day li .i{color:var(--color-accent-ink);font-family:var(--font-display);font-weight:300;width:3.5mm;flex:none}
+.day li .ar{flex:1;color:var(--color-ink)}
+.day li .x{direction:ltr;font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-muted);white-space:nowrap;text-decoration:none}
+.day li a.x{color:var(--color-brand);text-decoration:underline;text-decoration-color:var(--color-accent)}
+.plan-title{font-family:var(--font-display);font-weight:600;color:var(--color-ink);font-size:var(--text-md);display:flex;align-items:baseline;gap:var(--space-xs)}
+.plan-title .chip{font-weight:300;color:var(--color-accent-ink);font-size:var(--text-lg)}
 
 /* ---------- الغلاف ---------- */
-.cover{background:radial-gradient(120% 80% at 80% 10%,#2c58b4 0%,#1d3a80 38%,#0b1a3a 75%,#07142a 100%);color:#fff}
-.cover .lg{position:absolute;top:16mm;left:16mm;height:13mm}
-.cover .chev{position:absolute;color:var(--cyan);font-family:var(--f-display);font-weight:700;font-size:26pt;letter-spacing:-6px;opacity:.9}
-.cover .art{position:absolute;top:44mm;left:50%;transform:translateX(-50%);width:130mm;height:132mm}
-.cover .t{position:absolute;top:186mm;left:0;right:0;text-align:center}
-.cover .t h1{font-family:var(--f-display);font-weight:700;font-size:40pt;line-height:1.25}
-.cover .t .sub{font-family:var(--f-display);font-weight:400;color:var(--cyan-site);font-size:16pt;margin-top:3mm}
-.cover .by{position:absolute;bottom:22mm;left:0;right:0;text-align:center;font-family:var(--f-display)}
-.cover .by .who{font-size:13pt;font-weight:500}
-.cover .by .site{direction:ltr;font-size:9.5pt;opacity:.7;margin-top:1.5mm;letter-spacing:1.5px}
-.cover .bar{position:absolute;bottom:0;left:0;right:0;height:4mm;background:linear-gradient(to left,var(--cyan),var(--navy))}
+.cover{background:var(--color-night);color:var(--color-on-night)}
+.cover .frame{position:absolute;inset:12mm;border:var(--rule-hair) solid var(--color-night-rule)}
+.cover .lg{position:absolute;top:26mm;left:50%;transform:translateX(-50%);height:11mm}
+.cover .t{position:absolute;top:104mm;left:26mm;right:26mm;text-align:center}
+.cover .t .kicker{font-family:var(--font-display);font-weight:300;font-size:var(--text-md);color:var(--color-on-night-2)}
+.cover .t h1{font-family:var(--font-display);font-weight:300;font-size:50pt;line-height:1.3;margin-top:var(--space-sm);color:var(--color-on-night)}
+.cover .t h1 b{font-weight:600;color:var(--color-on-night)}
+.cover .rule{width:16mm;height:1.2pt;background:var(--color-accent);margin:var(--space-lg) auto}
+.cover .t .sub{font-family:var(--font-display);font-weight:300;color:var(--color-on-night-2);font-size:var(--text-lg)}
+.cover .by{position:absolute;bottom:30mm;left:0;right:0;text-align:center;font-family:var(--font-display)}
+.cover .by .who{font-size:var(--text-md);font-weight:400;color:var(--color-on-night)}
+.cover .by .site{direction:ltr;font-size:var(--text-xs);color:var(--color-on-night-2);margin-top:var(--space-2xs);letter-spacing:2.5pt}
 
-/* ---------- صفحات افتتاح الفصول ---------- */
-.opener{background:var(--paper)}
-.opener .panel{position:absolute;top:0;bottom:0;right:0;width:62%;background:linear-gradient(160deg,#284da0 0%,#1d3a80 55%,#0b1a3a 100%)}
-.opener .panel::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 14px)}
-.opener .big{position:absolute;top:62mm;left:10mm;font-family:var(--f-display);font-weight:700;font-size:124pt;line-height:1;color:var(--cyan);text-shadow:4mm 4mm 0 rgba(31,186,236,.22);direction:ltr}
-.opener .ico{position:absolute;top:58mm;right:24mm;width:62mm;height:62mm}
-.opener .lbl{position:absolute;top:150mm;right:24mm;left:24mm;color:#fff}
-.opener .lbl .chap{font-family:var(--f-display);font-size:11pt;letter-spacing:.5px;color:var(--cyan-site)}
-.opener .lbl h1{font-family:var(--f-display);font-weight:700;font-size:30pt;line-height:1.35;margin-top:2mm;max-width:105mm}
-.opener .lbl .desc{margin-top:5mm;max-width:100mm;font-size:11pt;line-height:1.8;color:rgba(255,255,255,.82)}
-.opener .lg{position:absolute;bottom:16mm;left:16mm;height:9mm}
-.opener .pf{color:rgba(255,255,255,.7)}
-.opener .pf .site{visibility:hidden}
-.opener .pnum{background:var(--cyan)}
+/* ---------- افتتاح الفصول ---------- */
+.opener{background:var(--color-paper)}
+.opener .panel,.opener .ico,.opener .lg{display:none}
+.opener .big{position:absolute;top:34mm;right:22mm;font-family:var(--font-display);font-weight:300;font-size:var(--text-numeral);line-height:1;color:var(--color-brand);direction:ltr;letter-spacing:-4pt}
+.opener .lbl{position:absolute;top:118mm;right:22mm;left:22mm;padding-top:var(--space-md);border-top:var(--rule-hair) solid var(--color-rule)}
+.opener .lbl .chap{font-family:var(--font-display);font-weight:400;font-size:var(--text-sm);color:var(--color-accent-ink)}
+.opener .lbl h1{font-family:var(--font-display);font-weight:600;font-size:var(--text-2xl);line-height:1.35;margin-top:var(--space-2xs);color:var(--color-ink);max-width:150mm}
+.opener .lbl .desc{margin-top:var(--space-sm);max-width:130mm;font-family:var(--font-display);font-weight:300;font-size:var(--text-md);line-height:1.8;color:var(--color-ink-2)}
+.opener .inside{position:absolute;bottom:34mm;right:22mm;left:22mm}
+.opener .inside .h{font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--space-2xs)}
+.opener .inside ol{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--space-lg)}
+.opener .inside li{font-family:var(--font-display);font-size:var(--text-sm);color:var(--color-ink-2);padding:var(--space-2xs) 0;border-top:var(--rule-hair) solid var(--color-rule-2);display:flex;justify-content:space-between;gap:var(--space-sm)}
+.opener .inside li span:last-child{color:var(--color-muted);font-variant-numeric:tabular-nums}
 
 /* ---------- صفحات خاصة ---------- */
-.plain .pc{top:30mm}
+.plain .pc{top:34mm}
 .toc-list{list-style:none}
-.toc-list li{display:flex;align-items:center;gap:3mm;padding:2.3mm 0;border-bottom:1px dashed var(--line)}
-.toc-list .n{font-family:var(--f-display);font-weight:700;color:var(--cyan);font-size:15pt;width:11mm}
-.toc-list a{border:0;color:var(--ink-2);font-family:var(--f-display);font-weight:500;font-size:12.2pt;flex:1}
-.toc-list .sub{display:block;font-family:var(--f-body);font-weight:400;font-size:9pt;color:var(--muted);line-height:1.5}
-.toc-list .pg{font-family:var(--f-display);font-weight:600;color:var(--navy);min-width:9mm;text-align:center;background:var(--navy-soft);border-radius:2mm;font-size:10pt}
-.rights{background:linear-gradient(180deg,#fff 0%,#f4f7fb 100%)}
-.rights .mark{position:absolute;top:30mm;left:50%;transform:translateX(-50%);width:80mm;height:80mm;opacity:.9}
-.contact{background:linear-gradient(165deg,#284da0 0%,#1d3a80 50%,#07142a 100%);color:#fff}
-.contact .in{position:absolute;inset:0;padding:40mm 24mm;display:flex;flex-direction:column;align-items:center;text-align:center}
-.contact h2{color:#fff;font-size:22pt}
-.contact h2::after{right:50%;transform:translateX(50%)}
-.contact p{text-align:center;color:rgba(255,255,255,.85)}
-.links{display:grid;gap:4mm;margin-top:10mm;width:120mm}
-.links a{display:flex;align-items:center;gap:4mm;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);border-radius:3.5mm;padding:3.4mm 5mm;color:#fff;font-family:var(--f-display)}
-.links a .ic{width:9mm;height:9mm;flex:none;border-radius:2.5mm;background:var(--cyan);display:flex;align-items:center;justify-content:center}
-.links a .ic svg{width:5.5mm;height:5.5mm}
-.links a .lb{flex:1;text-align:right;font-weight:500;font-size:12pt}
-.links a .u{direction:ltr;font-size:9.5pt;opacity:.75}
-.contact .lg{height:12mm;margin-top:auto}
+.toc-list li{display:grid;grid-template-columns:13mm minmax(0,1fr) auto;align-items:baseline;gap:var(--space-sm);padding:var(--space-2xs) 0;border-bottom:var(--rule-hair) solid var(--color-rule-2)}
+.toc-list .n{font-family:var(--font-display);font-weight:300;color:var(--color-accent-ink);font-size:var(--text-lg)}
+.toc-list a{text-decoration:none;color:var(--color-ink);font-family:var(--font-display);font-weight:500;font-size:var(--text-md)}
+.toc-list .sub{display:block;font-family:var(--font-body);font-weight:400;font-size:var(--text-xs);color:var(--color-muted);line-height:1.6}
+.toc-list .pg{font-family:var(--font-display);font-weight:400;color:var(--color-ink);font-size:var(--text-sm);font-variant-numeric:tabular-nums}
+.rights .mark{display:none}
+.rights .pc{top:auto;bottom:34mm}
+.contact{background:var(--color-night);color:var(--color-on-night)}
+.contact .frame{position:absolute;inset:12mm;border:var(--rule-hair) solid var(--color-night-rule)}
+.contact .in{position:absolute;inset:0;padding:48mm 34mm 34mm;display:flex;flex-direction:column;align-items:center;text-align:center}
+.contact h2{color:var(--color-on-night);font-weight:300;font-size:var(--text-2xl);border:0;padding:0;margin:0}
+.contact p{text-align:center;color:var(--color-on-night-2);margin-top:var(--space-sm);font-family:var(--font-display);font-weight:300}
+.links{display:grid;margin-top:var(--space-xl);width:130mm}
+.links a .lb,.links a .u{white-space:nowrap}
+.links a{display:flex;align-items:center;gap:var(--space-sm);border-top:var(--rule-hair) solid var(--color-night-rule);padding:var(--space-sm) 0;color:var(--color-on-night);font-family:var(--font-display);text-decoration:none}
+.links a:last-child{border-bottom:var(--rule-hair) solid var(--color-night-rule)}
+.links a .ic{width:7mm;height:7mm;flex:none;display:flex;align-items:center;justify-content:center}
+.links a .ic svg{width:5mm;height:5mm}
+.links a .ic svg *{stroke:var(--color-accent)}
+.links a .lb{flex:1;text-align:right;font-weight:400;font-size:var(--text-md)}
+.links a .u{direction:ltr;font-size:var(--text-sm);color:var(--color-on-night-2)}
+.contact .lg{height:10mm;margin-top:auto}
+.contact .pf .pnum{color:var(--color-on-night-2)}
+.contact .pf::before,.contact .pf::after{background:var(--color-night-rule)}
+.cover .pf,.contact .pf{display:none}
+.en-sub{font-size:var(--text-xs);color:var(--color-muted);font-weight:400}
+.sign{text-align:left;font-family:var(--font-display);font-weight:300;color:var(--color-brand);font-size:var(--text-lg);margin-top:var(--space-lg)}
