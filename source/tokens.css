@@ -3,6 +3,7 @@
  * brand anchors: navy #284da0 · logo cyan #1fbaec (navcoaching.com + logo)
  */
 :root{
+  --fs: 1; /* مقياس الخط: 1 للطباعة، أكبر لنسخة الجوال */
   /* paper & ink — tinted toward brand navy (hue ~262) */
   --color-paper:      oklch(97.6% 0.006 255);
   --color-paper-2:    oklch(95.2% 0.010 255);
@@ -34,15 +35,15 @@
   --font-display: "Readex Pro", "IBM Plex Sans Arabic", Tahoma, sans-serif;
   --font-body:    "IBM Plex Sans Arabic", "Readex Pro", Tahoma, sans-serif;
 
-  --text-xs: 8.4pt;  --text-sm: 9.6pt;  --text-body: 11.2pt; --text-md: 12.6pt;
-  --text-lg: 15pt;   --text-xl: 19pt;   --text-2xl: 30pt;    --text-display: 44pt;
-  --text-numeral: 150pt;
+  --text-xs: calc(9.5pt*var(--fs));  --text-sm: calc(10pt*var(--fs));  --text-body: calc(11.4pt*var(--fs)); --text-md: calc(12.6pt*var(--fs));
+  --text-lg: calc(15pt*var(--fs));   --text-xl: calc(19pt*var(--fs));   --text-2xl: calc(30pt*var(--fs));    --text-display: calc(44pt*var(--fs));
+  --text-numeral: calc(150pt*var(--fs));
 
-  /* space — 4pt scale, in mm for print */
+  /* space — calc(4pt*var(--fs)) scale, in mm for print */
   --space-3xs: 1mm;  --space-2xs: 1.5mm; --space-xs: 2.5mm; --space-sm: 3.5mm;
   --space-md: 5mm;   --space-lg: 8mm;    --space-xl: 12mm;  --space-2xl: 18mm; --space-3xl: 26mm;
 
-  --rule-hair: 0.6pt;
-  --rule-strong: 1.4pt;
+  --rule-hair: calc(0.6pt*var(--fs));
+  --rule-strong: calc(1.4pt*var(--fs));
   --radius-card: 1.2mm;
 }

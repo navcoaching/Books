@@ -11,15 +11,16 @@ try { pw = require('playwright'); } catch { pw = require('/opt/node-tools/node_m
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
-const out = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : path.join(here, '..', 'output', 'navcoaching-training-booklet.pdf'));
+const out = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : path.join(here, '..', 'output', args.includes('--mobile') ? 'navcoaching-training-booklet-mobile.pdf' : 'navcoaching-training-booklet.pdf'));
 const shotsIdx = args.indexOf('--shots');
 const shots = shotsIdx > -1 ? path.resolve(args[shotsIdx + 1]) : null;
+const mobile = args.includes('--mobile');
 
 const browser = await pw.chromium.launch();
 const page = await browser.newPage({ viewport: { width: 900, height: 1200 }, deviceScaleFactor: 2 });
 page.on('pageerror', (e) => console.log('[err]', e.message));
 page.on('console', (m) => { if (m.type() === 'warning' || m.type() === 'error') console.log('[page]', m.text()); });
-await page.goto('file://' + path.join(here, 'book.html'));
+await page.goto('file://' + path.join(here, 'book.html') + (mobile ? '?m=1' : ''));
 await page.waitForSelector('body[data-ready="1"]', { timeout: 60000, state: 'attached' });
 const layout = await page.evaluate(() => window.__layout);
 console.log('pages:', layout.pages, 'issues:', JSON.stringify(layout.issues));

@@ -1,5 +1,14 @@
 // يوزّع محتوى كل فصل (section.flow) على صفحات A4 تلقائيًا، ويضيف الترويسة والتذييل وأرقام الصفحات والفهرس.
 (async function () {
+  // نسخة الجوال: book.html?m=1 — صفحة أصغر ونص أكبر نسبيًا
+  if (/[?&]m=1/.test(location.search)) {
+    document.documentElement.classList.add('m');
+    const st = document.createElement('style');
+    st.textContent = '@page{size:115mm 204mm;margin:0}';
+    document.head.appendChild(st);
+  }
+  // تحميل كل الخطوط قبل القياس (المحتوى المخفي لا يطلبها تلقائيًا)
+  await Promise.all([...document.fonts].map((f) => f.load().catch(() => 0)));
   await document.fonts.ready;
   const book = document.getElementById('book');
   const src = document.getElementById('src');
@@ -20,7 +29,7 @@
     const ph = document.createElement('header');
     ph.className = 'ph';
     ph.innerHTML = (num ? `<span class="ph-num">${num}</span>` : '') +
-      `<span class="ph-title">${title}</span><span class="ph-line"></span><img src="${LOGO}" alt="Nav Coaching">`;
+      `<span class="ph-title">${title}</span><span class="ph-line"></span><a class="ph-logo" href="#toc" title="الفهرس"><img src="${LOGO}" alt="Nav Coaching — العودة إلى الفهرس"></a>`;
     page.appendChild(ph);
   }
   function footer(page) {
@@ -46,29 +55,73 @@
   function splittable(el) {
     return el.matches && (el.matches('table.split') || el.matches('ul.split,ol.split'));
   }
-  // يقسم جدولًا أو قائمة على أكثر من صفحة
+  // يقسم جدولًا أو قائمة أو أي حاوية متعددة العناصر على أكثر من صفحة
   function splitInto(el, pc, sec) {
     const isTable = el.tagName === 'TABLE';
-    const items = isTable ? [...el.tBodies[0].rows] : [...el.children];
-    let shell = el.cloneNode(false);
-    if (isTable) { if (el.tHead) shell.appendChild(el.tHead.cloneNode(true)); shell.appendChild(document.createElement('tbody')); }
+    const raw = isTable ? [...el.tBodies[0].rows] : [...el.children];
+    // إبقاء المصطلح مع شرحه في قوائم التعريف
+    const groups = [];
+    raw.forEach((it) => {
+      if (it.tagName === 'DD' && groups.length && groups[groups.length - 1][0].tagName === 'DT') groups[groups.length - 1].push(it);
+      else groups.push([it]);
+    });
+    const isSteps = el.matches('ol.steps');
+    let placed = 0;
+    const makeShell = () => {
+      const sh = el.cloneNode(false);
+      if (isTable) { if (el.tHead) sh.appendChild(el.tHead.cloneNode(true)); sh.appendChild(document.createElement('tbody')); }
+      if (isSteps) sh.style.counterReset = `s ${placed}`;
+      return sh;
+    };
+    let shell = makeShell();
     pc.appendChild(shell);
     let holder = isTable ? shell.tBodies[0] : shell;
-    for (const it of items) {
-      holder.appendChild(it);
-      if (over(pc)) {
-        holder.removeChild(it);
-        if (!holder.children.length) shell.remove();
+    for (const g of groups) {
+      g.forEach((it) => holder.appendChild(it));
+      if (over(pc) && holder.children.length > g.length) {
+        g.forEach((it) => holder.removeChild(it));
         pc = newPage(sec);
-        shell = el.cloneNode(false);
-        if (isTable) { if (el.tHead) shell.appendChild(el.tHead.cloneNode(true)); shell.appendChild(document.createElement('tbody')); }
-        if (!isTable && el.tagName === 'OL') shell.setAttribute('start', (it.value || 0));
+        shell = makeShell();
         pc.appendChild(shell);
         holder = isTable ? shell.tBodies[0] : shell;
-        holder.appendChild(it);
+        g.forEach((it) => holder.appendChild(it));
       }
+      else if (over(pc) && pc.children.length > 1) {
+        // حتى الصف الأول لا يتسع: انقل الجدول كله إلى صفحة جديدة
+        pc.removeChild(shell);
+        pc = newPage(sec);
+        pc.appendChild(shell);
+      }
+      if (isSteps) placed += g.filter((x) => x.tagName === 'LI').length;
     }
     return pc;
+  }
+
+  // يقسم فقرة نصية بين صفحتين لملء المساحة المتبقية
+  function fillParagraph(el, pc) {
+    const head = el.cloneNode(false);
+    head.classList.add('p-cont');
+    pc.appendChild(head);
+    while (el.firstChild) {
+      const n = el.firstChild;
+      head.appendChild(n);
+      if (!over(pc)) continue;
+      head.removeChild(n);
+      if (n.nodeType === 3) {
+        const words = n.textContent.split(/(\s+)/);
+        let lo = 0, hi = words.length;
+        const probe = document.createTextNode('');
+        head.appendChild(probe);
+        while (lo < hi) { const mid = (lo + hi + 1) >> 1; probe.textContent = words.slice(0, mid).join(''); if (over(pc)) hi = mid - 1; else lo = mid; }
+        probe.textContent = words.slice(0, lo).join('');
+        n.textContent = words.slice(lo).join('').replace(/^\s+/, '');
+        if (!probe.textContent.trim()) head.removeChild(probe);
+      }
+      el.insertBefore(n, el.firstChild);
+      break;
+    }
+    if (!head.textContent.trim()) { pc.removeChild(head); return false; }
+    return true;
   }
 
   for (const node of [...src.children]) {
@@ -82,6 +135,23 @@
       pc.appendChild(el);
       if (!over(pc)) continue;
       pc.removeChild(el);
+      // فقرة طويلة ومساحة كافية: اقسمها بدل ترك فراغ
+      if (el.tagName === 'P' && !el.closest('.chead')) {
+        const used = pc.lastElementChild ? pc.lastElementChild.getBoundingClientRect().bottom - pc.getBoundingClientRect().top : 0;
+        if (pc.clientHeight - used > 90 && fillParagraph(el, pc)) {
+          pc = newPage(sec);
+          i--; continue; // أعد معالجة بقية الفقرة في الصفحة الجديدة
+        }
+      }
+      // الخلاصة تنتقل مع آخر عنصر قبلها حتى لا تبقى وحدها
+      if (el.classList.contains('summary') && pc.children.length > 1 && !isKeep(pc.lastElementChild)) {
+        const prev = pc.removeChild(pc.lastElementChild);
+        pc = newPage(sec);
+        pc.appendChild(prev);
+        pc.appendChild(el);
+        if (!over(pc)) continue;
+        pc.removeChild(el);
+      }
       // نقل العناوين المعلّقة مع ما بعدها
       const carry = [];
       while (pc.lastElementChild && isKeep(pc.lastElementChild)) carry.unshift(pc.removeChild(pc.lastElementChild));
@@ -90,7 +160,8 @@
       carry.forEach((c) => pc.appendChild(c));
       if (splittable(el)) { pc = splitInto(el, pc, sec); continue; }
       pc.appendChild(el);
-      if (over(pc)) console.warn('OVERFLOW block', sec.dataset.title, el.outerHTML.slice(0, 80));
+      if (over(pc) && el.children.length > 1 && !el.classList.contains('chead')) { pc.removeChild(el); pc = splitInto(el, pc, sec); continue; }
+      if (over(pc)) console.warn('OVERFLOW', book.children.length, sec.dataset.title, el.outerHTML.slice(0, 60));
     }
   }
   src.remove();
@@ -107,28 +178,10 @@
     li.querySelector('.pg').textContent = pages.indexOf(pg) + 1;
   });
 
-  // «في هذا الفصل» بأرقام الصفحات
-  Object.entries(chapterHeads).forEach(([num, heads]) => {
-    const op = document.getElementById('ch' + num);
-    if (!op || heads.length < 2) return;
-    const box = document.createElement('div');
-    box.className = 'inside';
-    box.innerHTML = '<div class="h">في هذا الفصل</div><ol></ol>';
-    const ol = box.querySelector('ol');
-    heads.slice(0, 8).forEach((h) => {
-      const li = document.createElement('li');
-      const pg = pages.indexOf(h.closest('.page')) + 1;
-      li.innerHTML = `<span></span><span>${pg}</span>`;
-      li.firstChild.textContent = h.textContent.replace(/^\d+\.\d+/, '').trim();
-      ol.appendChild(li);
-    });
-    op.appendChild(box);
-  });
-
   // شرائط الشعار المائلة على كامل الصفحة — أشكال متجهة بألوان صلبة قريبة من لون الورق
   const PAL = {
     content: ['#ECF2FA', '#E6F3FB', '#E0E8F6'],
-    opener:  ['#E3EEF9', '#D8EEF9', '#C9D7F0'],
+    dense:   ['#EFF3FA', '#ECF4FA', '#E8EDF7'],
     dark:    ['#0B1D41', '#0D2350', '#123064'],
   };
   function slashes(kind) {
@@ -141,15 +194,17 @@
   pages.forEach((p) => {
     let kind = 'content';
     if (p.classList.contains('cover') || p.classList.contains('contact')) kind = 'dark';
-    else if (p.classList.contains('opener')) kind = 'opener';
+    else if (p.querySelector('table, .days, .ws')) kind = 'dense';
     p.insertAdjacentHTML('afterbegin', slashes(kind));
   });
 
+  // انتظار تحميل الصور قبل الفحص
+  await Promise.all([...document.images].map((im) => (im.complete ? 0 : im.decode().catch(() => 0))));
   // فحص التجاوز
   const issues = [];
   pages.forEach((p, i) => {
     const pc = p.querySelector('.pc');
-    if (pc && over(pc)) issues.push(i + 1);
+    if (pc && pc.scrollHeight > pc.clientHeight + 3) issues.push(i + 1);
     p.querySelectorAll('img').forEach((im) => { if (!im.complete || !im.naturalWidth) issues.push('img:' + (i + 1)); });
   });
   window.__layout = { pages: pages.length, issues };
