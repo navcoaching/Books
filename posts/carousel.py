@@ -1,0 +1,40 @@
+# يولّد شرائح الكاروسيل (HTML) ثم تُصوَّر PNG
+HEAD='''<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="../source/fonts.css"><style>
+:root{--ink:#16244A;--brand:#284DA0;--cyan:#1FBAEC;--paper:#F3F6FA;--muted:#5B6782}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1350px;background:var(--paper);font-family:"IBM Plex Sans Arabic";color:var(--ink);position:relative;overflow:hidden}
+body.dark{background:#0B1734;color:#EEF3FA}
+svg.bg{position:absolute;inset:0}
+.w{position:absolute;inset:72px 80px 64px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center}.top img{height:46px}.top span{font-size:24px;color:var(--muted);font-family:"Readex Pro"}
+.dark .top span{color:#9FB2D6}
+h1{font-family:"Readex Pro";font-weight:700;font-size:92px;line-height:1.18;margin-top:150px}h1 b{color:var(--brand)}.dark h1 b{color:var(--cyan)}
+h2{font-family:"Readex Pro";font-weight:700;font-size:66px;line-height:1.25;margin-top:90px;margin-bottom:24px}
+.sub{font-size:34px;color:var(--muted);margin-top:26px;line-height:1.6}.dark .sub{color:#B9C7E2}
+.card{background:#fff;border-radius:22px;padding:44px 40px;box-shadow:0 8px 22px rgba(22,36,74,.07);margin-top:34px}
+.pair{display:grid;grid-template-columns:1fr 70px 1.3fr;align-items:center}
+.pair .a{font-size:36px;color:var(--muted)}.pair .b{font-family:"Readex Pro";font-weight:600;font-size:39px;line-height:1.35}
+.ar{width:48px;height:6px;background:var(--cyan);border-radius:3px;justify-self:center;position:relative}.ar:after{content:"";position:absolute;left:-6px;top:-9px;border:12px solid transparent;border-right:14px solid var(--cyan);border-left:0}
+.tip{margin-top:22px;padding-top:20px;border-top:2px solid #E6ECF6;font-size:30px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+.tip b{color:var(--brand);font-family:"Readex Pro";white-space:nowrap}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:26px;color:var(--muted)}
+.dark .foot{color:#9FB2D6}.foot .n{font-family:"Readex Pro";direction:ltr}
+.swipe{font-family:"Readex Pro";font-weight:600;color:var(--brand);font-size:30px}
+ol.rules{list-style:none;margin-top:30px}ol.rules li{display:flex;gap:26px;align-items:flex-start;font-size:40px;line-height:1.55;margin-bottom:56px}
+ol.rules li span{flex:none;width:62px;height:62px;border-radius:50%;background:var(--brand);color:#fff;font-family:"Readex Pro";font-weight:600;display:flex;align-items:center;justify-content:center;font-size:30px}
+.cta{margin-top:50px;background:var(--cyan);color:#0B1734;font-family:"Readex Pro";font-weight:700;font-size:38px;padding:26px 40px;border-radius:999px;align-self:flex-start}
+.note{font-size:22px;color:var(--muted);margin-top:22px}
+</style></head>'''
+BG_L='<svg class="bg" viewBox="0 0 1080 1350" preserveAspectRatio="none"><g fill="#E6EEF9"><polygon points="620,0 760,0 130,1350 -10,1350"/><polygon points="820,0 960,0 330,1350 190,1350"/></g><polygon points="1010,0 1060,0 430,1350 380,1350" fill="#DCE6F6"/></svg>'
+BG_D='<svg class="bg" viewBox="0 0 1080 1350" preserveAspectRatio="none"><g fill="#102250"><polygon points="620,0 760,0 130,1350 -10,1350"/><polygon points="820,0 960,0 330,1350 190,1350"/></g><polygon points="1010,0 1060,0 430,1350 380,1350" fill="#16306A"/></svg>'
+def top(dark=False): return f'<div class="top"><img src="../source/img/{"logo-white-cyan" if dark else "logo-color"}.png"><span>تغذية بلا حرمان</span></div>'
+def foot(n,extra=''): return f'<div class="foot"><span>{extra}</span><span class="n">{n} / 5</span></div>'
+def swap(a,b,why,save): return f'<div class="card"><div class="pair"><span class="a">{a}</span><span class="ar"></span><span class="b">{b}</span></div><div class="tip"><span>{why}</span><b>{save}</b></div></div>'
+slides=[]
+slides.append(('dark',BG_D+'<div class="w">'+top(True)+'<h1>نفس الأكل<br>اللي تحبه…<br><b>بنسخة أخف</b></h1><p class="sub">6 تبديلات بسيطة توفّر عليك مئات السعرات<br>بدون ما تقطع أكلك المفضّل.</p>'+foot(1,'اسحب للتفاصيل ←')+'</div>'))
+slides.append(('',BG_L+'<div class="w">'+top()+'<h2>المقليات والمشروبات</h2>'+swap('بطاطس مقلية','بطاطس بالفرن أو القلاية الهوائية','نفس القرمشة بزيت أقل بكثير','≈ 150–200 سعرة')+swap('دجاج مقلي','دجاج مشوي بتتبيلة مقرمشة','نفس البروتين، بدون زيت القلي','≈ 150–250 سعرة')+swap('مشروب غازي','نسخة دايت أو ماء فوار بالليمون','العلبة العادية ≈ 140 سعرة من السكر','≈ 140 سعرة')+foot(2,'')+'</div>'))
+slides.append(('',BG_L+'<div class="w">'+top()+'<h2>الصوصات والعصائر والبرقر</h2>'+swap('صوص المايونيز','زبادي يوناني بالثوم والليمون','قوام كريمي + بروتين إضافي','≈ 70 سعرة لكل ملعقة')+swap('عصير محلّى','حبة فاكهة كاملة','ألياف أكثر وشبع أطول','≈ 60–80 سعرة')+swap('برقر مطعم','برقر بيتي: لحم قليل الدهن وخبز أسمر','تتحكم بالكمية والصوص','≈ 150–250 سعرة')+'<p class="note">الأرقام تقريبية وتختلف بحسب الكمية وطريقة التحضير.</p>'+foot(3,'')+'</div>'))
+slides.append(('',BG_L+'<div class="w">'+top()+'<h2>3 قواعد تخلّي أي أكلة أخف</h2><ol class="rules"><li><span>1</span><div><b>غيّر طريقة الطبخ:</b> شوي، فرن، أو قلاية هوائية بدل القلي.</div></li><li><span>2</span><div><b>انتبه للإضافات:</b> الصوصات والزيوت والمشروبات أكبر مصدر سعرات مخفية.</div></li><li><span>3</span><div><b>زِد البروتين والخضار:</b> نفس الطبق يصير مشبع أكثر بسعرات أقل.</div></li></ol><p class="sub">والأهم: إجمالي سعراتك اليومية، مو صنف واحد.</p>'+foot(4,'')+'</div>'))
+slides.append(('dark',BG_D+'<div class="w">'+top(True)+'<h1>اختر تبديلة<br><b>وحدة</b> بس<br>هالأسبوع</h1><p class="sub">التغيير البسيط اللي تستمر عليه أقوى من<br>نظام قاسي تتركه بعد أسبوع.</p><div class="cta">احفظ البوست · وشاركه مع صديق</div>'+foot(5,'navcoaching.com')+'</div>'))
+for i,(cls,body) in enumerate(slides,1):
+    open(f'carousel-{i}.html','w',encoding='utf8').write(HEAD+f'<body class="{cls}">'+body+'</body></html>')
