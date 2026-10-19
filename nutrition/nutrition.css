@@ -1,0 +1,64 @@
+/* Hallmark · genre: editorial · macrostructure: Long Document (sibling of the training booklet — shared system, not rotated)
+ * theme: custom (pearl paper, midnight navy, hairline restraint) · tokens: ../source/tokens.css
+ * additions for the nutrition booklet: recipe spread, recipe index, macro strip, photo figure
+ */
+
+/* ---------- صورة داخل الفصل ---------- */
+.fig{margin:var(--space-md) 0;break-inside:avoid;text-align:center}
+.fig img{max-width:100%;max-height:62mm;object-fit:contain;display:inline-block}
+.fig.wide img{width:100%;max-height:58mm;object-fit:cover;border-radius:var(--radius-card)}
+
+/* ---------- مثال محسوب ---------- */
+.worked{border:var(--rule-hair) solid var(--color-rule-2);border-radius:var(--radius-card);background:var(--color-paper);padding:var(--space-sm) var(--space-md);break-inside:avoid}
+.worked .wh{font-family:var(--font-display);font-weight:600;color:var(--color-brand);font-size:var(--text-md);margin-bottom:var(--space-2xs)}
+.worked table td:last-child{text-align:center;font-variant-numeric:tabular-nums;color:var(--color-ink);font-weight:600;white-space:nowrap}
+
+/* ---------- فهرس الوصفات ---------- */
+.rx-index{list-style:none;padding:0;columns:2;column-gap:var(--space-lg)}
+.rx-index li{break-inside:avoid;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:var(--space-xs);align-items:baseline;padding:var(--space-2xs) 0;border-bottom:var(--rule-hair) solid var(--color-rule-2);font-size:var(--text-sm);line-height:1.55}
+.rx-index li a{color:var(--color-ink);text-decoration:none}
+.rx-index li .kc{color:var(--color-muted);font-size:var(--text-xs);font-variant-numeric:tabular-nums}
+.rx-index li .pg{font-family:var(--font-display);color:var(--color-brand);min-width:7mm;text-align:left;font-variant-numeric:tabular-nums}
+.rx-index li.cat{display:block;column-span:none;border:0;padding-top:var(--space-sm);font-family:var(--font-display);font-weight:600;color:var(--color-accent-ink);font-size:var(--text-sm)}
+
+/* ---------- صفحة الوصفة ---------- */
+.rc{position:relative;display:grid;grid-template-columns:58mm minmax(0,1fr);margin-top:var(--space-md);grid-template-areas:"head head" "mac mac" "ing steps" "note note";column-gap:var(--space-lg);row-gap:var(--space-lg)}
+.rc-img{position:absolute;left:0;top:0;width:66mm;height:72mm;display:flex;align-items:center;justify-content:center}
+.rc-img img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 1.2mm 1.6mm oklch(22% 0.05 266 / .14))}
+.rc-head{grid-area:head;min-height:72mm;padding-left:72mm;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:var(--space-2xs)}
+.rc-cat{font-size:var(--text-sm);color:var(--color-accent-ink);margin-bottom:var(--space-3xs)}
+.rc h2{border-top:0;padding-top:0;margin-top:0;font-size:calc(21pt*var(--fs));line-height:1.35}
+.rc-time{margin-top:var(--space-2xs);font-size:var(--text-sm);color:var(--color-muted)}
+.rc-mac{grid-area:mac;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:var(--rule-strong) solid var(--color-ink);border-bottom:var(--rule-hair) solid var(--color-rule)}
+.rc-mac div{padding:var(--space-xs) 0;text-align:center;border-left:var(--rule-hair) solid var(--color-rule-2)}
+.rc-mac div:last-child{border-left:0}
+.rc-mac dd{font-family:var(--font-display);font-weight:300;font-size:calc(22pt*var(--fs));line-height:1.1;color:var(--color-brand);font-variant-numeric:tabular-nums}
+.rc-mac dd small{font-size:.5em;font-weight:400;color:var(--color-muted);margin-right:.6mm}
+.rc-mac dt{font-size:var(--text-xs);color:var(--color-muted);margin-top:var(--space-3xs)}
+.rc-mac div:first-child dd{color:var(--color-ink);font-weight:400}
+.rc-ing{grid-area:ing}.rc-steps{grid-area:steps}
+.rc-ing h3,.rc-steps h3{margin-top:0;margin-bottom:var(--space-xs);color:var(--color-ink);font-weight:600;font-size:var(--text-md);padding-bottom:var(--space-2xs);border-bottom:var(--rule-hair) solid var(--color-rule)}
+.rc-ing ul{list-style:none;padding:0;font-size:calc(10.6pt*var(--fs));line-height:1.65}
+.rc-ing li{padding:var(--space-2xs) 0;border-bottom:var(--rule-hair) solid var(--color-rule-2);display:grid;grid-template-columns:17mm minmax(0,1fr);column-gap:var(--space-xs)}
+.rc-ing li .q{font-family:var(--font-display);font-weight:500;color:var(--color-brand);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rc-ing li.opt{color:var(--color-muted)}
+.rc-steps .steps{font-size:calc(10.8pt*var(--fs));line-height:1.8}
+.rc-note{grid-area:note}
+.rc-sec{display:none}
+
+/* ---------- افتتاح باب الوصفات ---------- */
+.rx-intro .fig img{max-height:70mm}
+
+/* ---------- المراجع ---------- */
+.links-in{font-size:var(--text-sm)}
+
+/* ---------- نسخة الجوال ---------- */
+html.m .rc{grid-template-columns:minmax(0,1fr);grid-template-areas:"img" "head" "mac" "ing" "steps" "note";row-gap:var(--space-sm)}
+html.m .rc-img{grid-area:img;position:static;width:auto;height:42mm}
+html.m .rc-head{min-height:0;padding-left:0}
+html.m .rc-img img{max-height:42mm}
+html.m .rc h2{font-size:calc(16pt*var(--fs))}
+
+html.m .rc-mac dd{font-size:calc(15pt*var(--fs))}
+html.m .rx-index{columns:1}
+html.m .fig img{max-height:44mm}
