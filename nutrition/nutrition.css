@@ -3,6 +3,7 @@
  * additions for the nutrition booklet: recipe spread, recipe index, macro strip, photo figure
  */
 
+:root{--color-photo-card:#ECF1F8} /* لون بطاقة صور الوصفات — الصور مسطّحة على نفس اللون */
 /* ---------- صورة داخل الفصل ---------- */
 .fig{margin:var(--space-md) 0;break-inside:avoid;text-align:center}
 .fig img{max-width:100%;max-height:62mm;object-fit:contain;display:inline-block}
@@ -23,9 +24,9 @@
 
 /* ---------- صفحة الوصفة ---------- */
 .rc{position:relative;display:grid;grid-template-columns:58mm minmax(0,1fr);margin-top:var(--space-md);grid-template-areas:"head head" "mac mac" "ing steps" "note note";column-gap:var(--space-lg);row-gap:var(--space-md)}
-.rc-img{position:absolute;left:0;top:0;width:66mm;height:72mm;display:flex;align-items:center;justify-content:center}
-.rc-img img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 1.2mm 1.6mm oklch(22% 0.05 266 / .14))}
-.rc-head{grid-area:head;min-height:72mm;padding-left:72mm;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:var(--space-2xs)}
+.rc-img{position:absolute;left:0;top:0;width:68mm;height:72mm;display:flex;align-items:center;justify-content:center;background:var(--color-photo-card);border-radius:var(--radius-card);padding:var(--space-xs);overflow:hidden}
+.rc-img img{width:100%;height:100%;object-fit:contain}
+.rc-head{grid-area:head;min-height:72mm;padding-left:76mm;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:var(--space-2xs)}
 .rc-cat{font-size:var(--text-sm);color:var(--color-accent-ink);margin-bottom:var(--space-3xs)}
 .rc h2{border-top:0;padding-top:0;margin-top:0;font-size:calc(21pt*var(--fs));line-height:1.35}
 .rc-time{margin-top:var(--space-2xs);font-size:var(--text-sm);color:var(--color-muted)}

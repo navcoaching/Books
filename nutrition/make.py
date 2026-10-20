@@ -37,7 +37,7 @@ ALL=[]  # (cat, recipe, tags)
 for cat,sid,lst,home in BASE: ALL += [(cat,r,tags(r[0],r[4])) for r in lst]
 for cat,sid,lst,home,*_ in SPECIAL: ALL += [(cat,r,tags(r[0],r[4],home)) for r in lst]
 
-def img_src(img): return f"img/{img}.webp" if img.startswith('gen/') else f"img/orig/{img}.webp"
+def img_src(img): return "img/card/"+img.split('/')[-1]+".jpg"
 
 def recipe_html(cat, r, tg):
     rid,name,img,time,mac,serv,ing,steps,note = r
